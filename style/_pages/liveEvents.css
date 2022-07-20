@@ -66,6 +66,16 @@ p{
   width: 33%;
   height: 400px;
 }
+@media (max-width: 1000px) {
+  .upcoming_cards:hover {
+    width: 310px;
+  }
+}
+@media (max-width: 730px) {
+  .upcoming_cards:hover {
+    width: 96%;
+  }
+}
 @media (max-width: 1000px){
   .upcoming_cards {
     width: 300px;
@@ -254,4 +264,10 @@ p{
   position: sticky;
   top: 0;
   background: #f6f6f6;
-}/*# sourceMappingURL=liveEvents.css.map */
+}
+@media (max-width:980px) { 
+  .left-window{
+    display: none;
+  }
+}
+/*# sourceMappingURL=liveEvents.css.map */

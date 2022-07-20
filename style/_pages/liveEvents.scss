@@ -61,6 +61,12 @@ p{
 	&:hover {
 		width: 33%;
 		height: 400px;
+		@media (max-width: 1000px) {
+			width: 310px;
+		}
+		@media (max-width: 730px) {
+			width: 96%;
+		}
 	  }
 	@media (max-width: 1000px) {
 		width: 290px;
@@ -236,3 +242,8 @@ p{
 	top: 0;
 	background: #f6f6f6;
 }
+.left-window{ 
+	@media (max-width:980px) {
+	  display: none;
+	}
+  }

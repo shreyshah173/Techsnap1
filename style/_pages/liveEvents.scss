@@ -55,12 +55,19 @@
 	background: pink;
 	margin: 20px 3px;
 	border-radius: 20px;
-	@media (max-width: 1550px) {
-		width: 340px;
+	&:hover {
+		width: 33%;
+		height: 400px;
+	  }
+	@media (max-width: 1000px) {
+		width: 290px;
 	}
 	@media (max-width: 730px) {
 		width: 95%;
 		margin: 20px 0px;
+	}
+	a{
+		text-decoration: none;
 	}
 	.card_poster_holder {
 		width: 100%;
@@ -157,6 +164,11 @@
 				height: 38px;
 
 				font-size: 1rem;
+			}
+			&:hover{
+				background: currentColor;
+				background-color: white;
+				color: #000000;
 			}
 		}
 	}

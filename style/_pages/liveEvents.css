@@ -59,9 +59,13 @@
   margin: 20px 3px;
   border-radius: 20px;
 }
-@media (max-width: 1550px) {
+.upcoming_cards:hover {
+  width: 33%;
+  height: 400px;
+}
+@media (max-width: 1000px){
   .upcoming_cards {
-    width: 340px;
+    width: 300px;
   }
 }
 @media (max-width: 730px) {
@@ -69,6 +73,9 @@
     width: 95%;
     margin: 20px 0px;
   }
+}
+.upcoming_cards a{
+  text-decoration: none;
 }
 .upcoming_cards .card_poster_holder {
   width: 100%;
@@ -175,7 +182,11 @@
     font-size: 1rem;
   }
 }
-
+.missing_cards .card_body button:hover{
+  background: currentColor;
+				background-color: white;
+				color: #000000;
+}
 .tab {
   overflow: hidden;
   display: flex;
@@ -235,7 +246,6 @@
     margin: 0;
   }
 }
-
 .sticky {
   position: -webkit-sticky;
   position: sticky;

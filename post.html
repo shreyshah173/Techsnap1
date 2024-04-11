@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Post</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            /* max-width: 600px; */
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea#message {
+            /* Adjust this value as needed */
+            /* min-height: 40%; */
+            resize: vertical;
+            /* Allow vertical resizing */
+        }
+
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .preview-images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .preview-image {
+            position: relative;
+            max-width: 500px;
+            max-height: 500px;
+            margin: 5px;
+            height: 10em;
+            width: 10em;
+        }
+
+        .remove-button {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .preview-image-container {
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .hashtags-container {
+            margin-bottom: 10px;
+        }
+
+        .hashtag {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px;
+            background-color: #eae6e6;
+            border-radius: 5px;
+        }
+
+        .remove-hashtag {
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        .remove-button {
+            opacity: 0.7;
+        }
+
+        .preview-image-container {
+            aspect-ratio: 16/9;
+        }
+
+        .leftImageRight {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .preview-image-container {
+            /* Your existing styles for the sub-div */
+            /* Add additional styles as needed */
+            flex-basis: 25%;
+            /* For large screens, 4 sub-divs in a row */
+        }
+
+        @media screen and (max-width: 1024px) {
+            .preview-image-container {
+                flex-basis: 33.33%;
+                /* For medium screens, 3 sub-divs in a row */
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .preview-image-container {
+                flex-basis: 50%;
+                /* For small screens, 2 sub-divs in a row */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 style="text-align: center; font-weight: bold;">Create a Post</h1>
+        <form method="post" enctype="multipart/form-data" id="post-form">
+            <div>
+                <div>
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" required>
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                    <div class="hashtags-container">
+                        <label for="hashtags">Hashtags:</label>
+                        <input type="text" id="hashtags" name="hashtags">
+                        <div style="text-align: center;">
+                            <button type="button" id="add-hashtag"
+                                style="background-color: rgb(10, 24, 46);font-weight: bold;  font-size: 1em;  width: 10vw; height: auto;  padding: 1%; border-radius: 20px; cursor: pointer; transition: opacity 0.3s; color: white;"
+                                onmouseover="this.style.color='gray'" onmouseout="this.style.color='white'">Add</button>
+                        </div>
+                        <div id="hashtags-list"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="images">Images:</label>
+                    <input type="file" id="images" name="images[]" accept="image/*" multiple required>
+                    <div class="preview-images" style="display: flex; flex-wrap: wrap;">
+
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <input type="submit" value="Post" id="submit-button"
+                    style="background-color: rgb(10, 24, 46);font-weight: bold;  font-size: 1em;  width: 10vw; height: auto;  padding: 1%; border-radius: 20px; cursor: pointer; transition: opacity 0.3s; color: white;"
+                    onmouseover="this.style.color='gray'" onmouseout="this.style.color='white'">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        var selectedImages = []; // Array to store selected images
+        var hashtags = []; // Array to store hashtags
+
+        document.getElementById('images').addEventListener('change', function (event) {
+            var files = event.target.files;
+            for (var i = 0; i < files.length; i++) {
+                selectedImages.push(files[i]); // Store selected image in the array
+            }
+            displaySelectedImages(); // Display selected images
+        });
+
+        // Function to display selected images
+        // Function to display selected images
+        function displaySelectedImages() {
+            var previewContainer = document.querySelector('.preview-images');
+            previewContainer.innerHTML = '';
+            selectedImages.forEach(function (image, index) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    var imageDiv = document.createElement('div');
+                    imageDiv.classList.add('image-wrapper');
+
+                    var imgElement = document.createElement('img');
+                    imgElement.src = event.target.result;
+                    imgElement.classList.add('preview-image');
+
+                    imageDiv.appendChild(imgElement);
+
+
+                    var removeButton = document.createElement('button');
+                    removeButton.innerHTML = 'Remove';
+                    removeButton.classList.add('remove-button');
+                    removeButton.addEventListener('click', function () {
+                        selectedImages.splice(index, 1);
+                        displaySelectedImages();
+                    });
+
+                    var rightArrowDiv = document.createElement('div');
+                    rightArrowDiv.classList.add('rightArrowDiv');
+
+                    var rightArrow = document.createElement('button');
+                    rightArrow.innerHTML = '>';
+                    rightArrow.classList.add('arrow-button', 'right-arrow');
+                    rightArrow.addEventListener('click', function () {
+                        swapImages(index, index + 1);
+                    });
+
+                    var leftArrowDiv = document.createElement('div');
+                    leftArrowDiv.classList.add('leftArrowDiv');
+
+                    var leftArrow = document.createElement('button');
+                    leftArrow.innerHTML = '<';
+                    leftArrow.classList.add('arrow-button', 'left-arrow');
+                    leftArrow.addEventListener('click', function () {
+                        swapImages(index, index - 1);
+                    });
+
+
+
+                    var container = document.createElement('div');
+                    container.classList.add('preview-image-container');
+                    leftArrowDiv.appendChild(leftArrow);
+                    rightArrowDiv.appendChild(rightArrow);
+                    // Create a div to wrap leftArrowDiv, imageDiv, and rightArrowDiv
+                    var leftImageRightDiv = document.createElement('div');
+                    leftImageRightDiv.classList.add('leftImageRight');
+
+                    // Append leftArrowDiv, imageDiv, and rightArrowDiv to the leftImageRightDiv
+                    leftImageRightDiv.appendChild(leftArrowDiv);
+                    leftImageRightDiv.appendChild(imageDiv);
+                    leftImageRightDiv.appendChild(rightArrowDiv);
+
+                    // Append leftImageRightDiv to the container
+                    container.appendChild(leftImageRightDiv);
+
+                    container.appendChild(removeButton);
+
+                    previewContainer.appendChild(container);
+                };
+                reader.readAsDataURL(image);
+            });
+        }
+
+        // Function to swap images
+        function swapImages(currentIndex, newIndex) {
+            if (newIndex >= 0 && newIndex < selectedImages.length) {
+                var temp = selectedImages[currentIndex];
+                selectedImages[currentIndex] = selectedImages[newIndex];
+                selectedImages[newIndex] = temp;
+                displaySelectedImages();
+            }
+        }
+
+
+        // Event listener for add hashtag button
+        document.getElementById('add-hashtag').addEventListener('click', function () {
+            var hashtagInput = document.getElementById('hashtags');
+            var hashtag = hashtagInput.value.trim(); // Remove leading and trailing spaces
+            if (hashtag !== '') {
+                hashtags.push('#' + hashtag); // Add hashtag with '#' symbol to the array
+                displayHashtags(); // Display hashtags
+                hashtagInput.value = ''; // Clear input field
+            }
+        });
+
+        // event listener for post buttopn
+        document.getElementById('post-form').addEventListener('submit', function (event) {
+            if (hashtags.length < 3) {
+                alert('Please add at least 3 hashtags.');
+                return;
+            }
+
+            event.preventDefault();
+            var formData = new FormData(this);
+
+            var title = formData.get('title');  // title of the post 
+            var message = formData.get('message'); // message of the post 
+            console.log('Title:', title);
+            console.log('Message:', message);
+            var hashtag_data = hashtags;
+            console.log('Hashtags:');
+            hashtag_data.forEach(function (hashtag) {
+                console.log(hashtag); // individual hashtags
+            });
+
+            // Extract and log each image
+            console.log("Images:");
+            var posting_images = selectedImages;  // array for images
+            for (var i = 0; i < posting_images.length; i++) {
+                console.log('Image:', posting_images[i].name);
+            }
+
+        });
+
+        // Function to display hashtags
+        function displayHashtags() {
+            var hashtagsList = document.getElementById('hashtags-list');
+            hashtagsList.innerHTML = '';
+            hashtags.forEach(function (hashtag, index) {
+                var hashtagElement = document.createElement('div');
+                hashtagElement.textContent = hashtag;
+                hashtagElement.classList.add('hashtag');
+
+                var removeButton = document.createElement('button');
+                removeButton.innerHTML = 'X';
+                removeButton.classList.add('remove-hashtag');
+                removeButton.addEventListener('click', function () {
+                    hashtags.splice(index, 1);
+                    displayHashtags();
+                });
+
+                hashtagElement.appendChild(removeButton);
+                hashtagsList.appendChild(hashtagElement);
+            });
+        }
+    </script>
+
+</body>
+
+</html>

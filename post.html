@@ -158,7 +158,8 @@
                         <div style="text-align: center;">
                             <button type="button" id="add-hashtag"
                                 style="background-color: rgb(10, 24, 46);font-weight: bold;  font-size: 1em;  width: 10vw; height: auto;  padding: 1%; border-radius: 20px; cursor: pointer; transition: opacity 0.3s; color: white;"
-                                onmouseover="this.style.color='white'" onmouseout="this.style.color='white'">Add</button>
+                                onmouseover="this.style.color='white'"
+                                onmouseout="this.style.color='white'">Add</button>
                         </div>
                         <div id="hashtags-list"></div>
                     </div>
@@ -288,31 +289,34 @@
 
         // event listener for post buttopn
         document.getElementById('post-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            
             if (hashtags.length < 3) {
                 alert('Please add at least 3 hashtags.');
-                return;
+                // return ;
             }
+            else {
 
-            event.preventDefault();
-            var formData = new FormData(this);
+                var formData = new FormData(this);
 
-            var title = formData.get('title');  // title of the post 
-            var message = formData.get('message'); // message of the post 
-            console.log('Title:', title);
-            console.log('Message:', message);
-            var hashtag_data = hashtags;
-            console.log('Hashtags:');
-            hashtag_data.forEach(function (hashtag) {
-                console.log(hashtag); // individual hashtags
-            });
+                var title = formData.get('title');  // title of the post 
+                var message = formData.get('message'); // message of the post 
+                console.log('Title:', title);
+                console.log('Message:', message);
+                var hashtag_data = hashtags;
+                console.log('Hashtags:');
+                hashtag_data.forEach(function (hashtag) {
+                    console.log(hashtag); // individual hashtags
+                });
 
-            // Extract and log each image
-            console.log("Images:");
-            var posting_images = selectedImages;  // array for images
-            for (var i = 0; i < posting_images.length; i++) {
-                console.log('Image:', posting_images[i].name);
+                // Extract and log each image
+                console.log("Images:");
+                var posting_images = selectedImages;  // array for images
+                for (var i = 0; i < posting_images.length; i++) {
+                    console.log('Image:', posting_images[i].name);
+                }
+
             }
-
         });
 
         // Function to display hashtags

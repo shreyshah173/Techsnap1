@@ -508,33 +508,16 @@
             <h1 style="text-align: center; font-weight: bold; font-size: 40px;">Create a Post</h1>
             <form method="post" enctype="multipart/form-data" id="post-form">
                 <div>
-                    <div class="lg:flex">
-                        <div class="w-auto m-2" style="flex: 1;">
-                            <label for="title">Title:</label>
-                            <input type="text" id="title" name="title" required>
-                            <div class="hashtags-container">
-                                <label for="hashtags">Hashtags:</label>
-                                <input type="text" id="hashtags" name="hashtags">
-                                <div style="text-align: center;">
-                                    <button type="button" id="add-hashtag"
-                                        style="background-color: rgb(10, 24, 46);font-weight: bold;  font-size: 1em;  width: 10vw; height: auto;  padding: 1%; border-radius: 20px; cursor: pointer; transition: opacity 0.3s; color: white;"
-                                        onmouseover="this.style.color='white'"
-                                        onmouseout="this.style.color='white'">Add</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-2" style="flex: 1;">
-                            <label for="message">Message:</label>
-                            <textarea id="message" name="message" rows="4" required></textarea>
-                        </div>
+                    <div>
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+
                     </div>
-                    <div id="hashtags-list"></div>
 
-
-                    <div class="mt-4 ">
+                    <div class="mt-4" style="border: 2px solid #d3d3d3;">
                         <label for="images">Images:</label>
                         <input type="file" id="images" name="images[]" accept="image/*" multiple required>
-                        <div class="image-section flex w-full flex-wrap justify-between border">
+                        <div class="image-section flex w-full flex-wrap justify-between">
                             <div class="first-image w-1/2 flex-shrink-0">
 
                             </div>
@@ -543,16 +526,28 @@
                             </div>
                         </div>
                         <div class="allImages col-span-6 " style="display: none; flex-wrap: wrap;">
-                            Save
+
                         </div>
-                        <button id="toggleImagesButton" type="button">Save</button>
+                        <div style="text-align: center;">
+                            <button id="toggleImagesButton" type="button" style=" color: white;height: 2em;  width: 10%; background-color: rgb(10, 24, 46); border-radius: 10px;">Save</button>
+                        </div>
+                    </div>
 
-
-
-
-
+                    <div class="hashtags-container mt-8">
+                        <label for="hashtags">Hashtags:</label>
+                        <div style="position: relative;">
+                            <input type="text" id="hashtags" name="hashtags" style="padding-right: 30px;">
+                            <!-- Adjust padding to accommodate button width -->
+                            <button type="button" id="add-hashtag"
+                                style="position: absolute; top: 0; right: 0; background-color: rgb(10, 24, 46); font-weight: bold; font-size: 1em; height: 70%; padding: 0.5em;margin: .2em; border-radius: 10px; cursor: pointer; transition: opacity 0.3s; color: white;">
+                                Add
+                            </button>
+                        </div>
+                        <div id="hashtags-list"></div>
 
                     </div>
+
+
                 </div>
                 <div style="text-align: center;">
                     <input type="submit" value="Post" id="submit-button"
@@ -696,6 +691,7 @@
                     removeButton.addEventListener('click', function () {
                         selectedImages.splice(index, 1);
                         displaySelectedImages();
+                        displayFirstSelectedImage();
                     });
 
                     var rightArrowDiv = document.createElement('div');

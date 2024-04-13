@@ -41,7 +41,6 @@
             overflow: hidden;
         }
 
-
         input[type="text"],
         textarea {
             width: 100%;
@@ -59,13 +58,12 @@
             /* Allow vertical resizing */
         }
 
-
         input[type="file"] {
             margin-bottom: 10px;
         }
 
         input[type="submit"] {
-            background-color: #4CAF50;
+            background-color: #4caf50;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -187,19 +185,18 @@
             border: 2px solid red;
             width: 90%;
             height: auto;
-
         }
 
-        .allImages {
-            display: flex;
-            flex-direction: column;
-        }
+        /* .allImages {
+        display: flex;
+        flex-direction: row;
+      } */
 
         .allImages img {
-            display: inline-block;
+
             /* or remove display property to use default behavior */
-            height: 10vw;
-            width: 10vw;
+            height: 20vw;
+            width: 30vw;
             border: 2px solid red;
             margin: 2%;
         }
@@ -221,10 +218,51 @@
             }
 
             .allImages img {
-                display: block;
+                /* display: block; */
                 height: 50vw;
                 width: 50vw;
             }
+        }
+
+        .message-container,
+        .hashtags-container {
+            display: none;
+        }
+
+        .parentDiv {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        button.previous-button {
+            
+            width: 7%;
+        }
+        
+        button.next-button {
+            width: 7%;
+            
+        }
+
+        button.previous-button p {
+            border: 2px solid;
+            border-radius: 50%;
+            width: 100%;
+            font-size: 1.3em;
+        }
+        
+        button.next-button p {
+            width: 100%;
+            border: 2px solid;
+            border-radius: 50%;
+            font-size: 1.3em;
+        }
+
+        .parentImgDiv {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
     </style>
 </head>
@@ -505,140 +543,191 @@
 
         <!---------------My progress section---------------------->
         <div class="container">
-            <h1 style="text-align: center; font-weight: bold; font-size: 40px;">Create a Post</h1>
+            <h1 style="text-align: center; font-weight: bold; font-size: 40px">
+                Create a Post
+            </h1>
             <form method="post" enctype="multipart/form-data" id="post-form">
                 <div>
-                    <div>
-                        <label for="message">Message:</label>
-                        <textarea id="message" name="message" rows="4" required></textarea>
-
+                    <div class="w-full bg-white shadow-md rounded-lg hover:shadow-2xl  px-2">
+                        <div class="flex justify-between">
+                            <div class="flex">
+                                <div class="h-16 w-16">
+                                    <img class="rounded-full object-cover md:w-48 md:h-auto md:rounded-l-none"
+                                        src="https://avatars.githubusercontent.com/u/122403035?v=4"
+                                        alt="Alan Biju profile picture" />
+                                </div>
+                                <div class="px-4 md:text-left">
+                                    <h2 class="text-md font-bold text-gray-800">Alan Biju</h2>
+                                    <p class="pt-2 text-gray-600 text-sm">TechSnap DevOps</p>
+                                </div>
+                            </div>
+                            <div>...</div>
+                        </div>
+                        <div class="py-2">
+                            <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed consequat
+                                vehicula turpis, vitae facilisis justo fermentum at. Duis convallis mauris nec dolor
+                                molestie, nec commodo orci sollicitudin. Vivamus volutpat dapibus felis,</p>
+                        </div>
                     </div>
 
-                    <div class="mt-4" style="border: 2px solid #d3d3d3;">
-                        <label for="images">Images:</label>
-                        <input type="file" id="images" name="images[]" accept="image/*" multiple required>
-                        <div class="image-section flex w-full flex-wrap justify-between">
-                            <div class="first-image w-1/2 flex-shrink-0">
 
-                            </div>
-                            <div class="pre-preview-div  w-1/2 flex-shrink-0">
-                                <div class="preview-images"></div>
-                            </div>
-                        </div>
-                        <div class="allImages col-span-6 " style="display: none; flex-wrap: wrap;">
-
-                        </div>
-                        <div style="text-align: center;">
-                            <button id="toggleImagesButton" type="button" style=" color: white;height: 2em;  width: 10%; background-color: rgb(10, 24, 46); border-radius: 10px;">Save</button>
-                        </div>
-                    </div>
 
                     <div class="hashtags-container mt-8">
                         <label for="hashtags">Hashtags:</label>
-                        <div style="position: relative;">
-                            <input type="text" id="hashtags" name="hashtags" style="padding-right: 30px;">
+                        <div style="position: relative">
+                            <input type="text" id="hashtags" name="hashtags" style="padding-right: 30px" />
                             <!-- Adjust padding to accommodate button width -->
-                            <button type="button" id="add-hashtag"
-                                style="position: absolute; top: 0; right: 0; background-color: rgb(10, 24, 46); font-weight: bold; font-size: 1em; height: 70%; padding: 0.5em;margin: .2em; border-radius: 10px; cursor: pointer; transition: opacity 0.3s; color: white;">
+                            <button type="button" id="add-hashtag" style="position: absolute;
+                    top: 0;
+                    right: 0;
+                    background-color: rgb(10, 24, 46);
+                    font-weight: bold;
+                    font-size: 1em;
+                    height: 70%;
+                    padding: 0.5em;
+                    margin: 0.2em;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    transition: opacity 0.3s;
+                    color: white;
+                  ">
                                 Add
                             </button>
                         </div>
                         <div id="hashtags-list"></div>
-
                     </div>
 
+                    <div class="message-container">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                    </div>
 
+                    <div class="mt-4" style="border: 2px solid #d3d3d3">
+                        <label for="images">Images:</label>
+                        <input type="file" id="images" name="images[]" accept="image/*" multiple required />
+                        <div class="image-section flex w-full flex-wrap justify-between">
+                            <div class="first-image w-1/2 flex-shrink-0"></div>
+                            <div class="pre-preview-div w-1/2 flex-shrink-0">
+                                <div class="preview-images"></div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap ">
+                            <div class="flex allImages overflow-x-auto">
+                            </div>
+                        </div>
+
+                        <div style="text-align: center">
+                            <button id="toggleImagesButton" type="button" style="
+                    color: white;
+                    height: 2em;
+                    width: 10%;
+                    background-color: rgb(10, 24, 46);
+                    border-radius: 10px;
+                  ">
+                                Save
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div style="text-align: center;">
-                    <input type="submit" value="Post" id="submit-button"
-                        style="background-color: rgb(10, 24, 46);font-weight: bold;  font-size: 1em;  width: 10vw; height: auto;  padding: 1%; border-radius: 20px; cursor: pointer; transition: opacity 0.3s; color: white;"
-                        onmouseover="this.style.color='white'" onmouseout="this.style.color='white'">
+                <div style="text-align: center">
+                    <input type="submit" value="Post" id="submit-button" style="
+                background-color: rgb(10, 24, 46);
+                font-weight: bold;
+                font-size: 1em;
+                width: 10vw;
+                height: auto;
+                padding: 1%;
+                border-radius: 20px;
+                cursor: pointer;
+                transition: opacity 0.3s;
+                color: white;
+              " onmouseover="this.style.color='white'" onmouseout="this.style.color='white'" />
                 </div>
             </form>
         </div>
     </div>
     <script src="./app.js"></script>
     <script>
-        document.getElementById('defaultslidebtnOpen').click();
+        document.getElementById("defaultslidebtnOpen").click();
 
         function slideTab(evt, cityName) {
             let i, tabcontent, tablinks;
 
-            tabcontent = document.getElementsByClassName('slideTabContent');
+            tabcontent = document.getElementsByClassName("slideTabContent");
             for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = 'none';
+                tabcontent[i].style.display = "none";
             }
-            tablinks = document.getElementsByClassName('slideTabLinks');
+            tablinks = document.getElementsByClassName("slideTabLinks");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(
-                    'activeSlide',
-                    '',
+                    "activeSlide",
+                    ""
                 );
             }
-            document.getElementById(cityName).style.display = 'flex';
+            document.getElementById(cityName).style.display = "flex";
             console.log(evt);
 
             const event = document.getElementsByClassName(evt)[0];
-            event.classList.add('activeSlide');
+            event.classList.add("activeSlide");
         }
 
         function slidebtn(evt, cityName, defaultTabClass, evts) {
             let i, tabcontent, tablinks;
             slideTab(evts, defaultTabClass);
-            tabcontent = document.getElementsByClassName('slidebtnContent');
+            tabcontent = document.getElementsByClassName("slidebtnContent");
             for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = 'none';
+                tabcontent[i].style.display = "none";
             }
-            tablinks = document.getElementsByClassName('slidebtnLinks');
+            tablinks = document.getElementsByClassName("slidebtnLinks");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(
-                    'activebtn',
-                    '',
+                    "activebtn",
+                    ""
                 );
             }
-            document.getElementById(cityName).style.display = 'flex';
-            evt.currentTarget.className += ' activebtn';
+            document.getElementById(cityName).style.display = "flex";
+            evt.currentTarget.className += " activebtn";
         }
-        const tabs = document.querySelectorAll('[data-tab-target]');
-        const tabContents = document.querySelectorAll('[data-tab-content]');
+        const tabs = document.querySelectorAll("[data-tab-target]");
+        const tabContents = document.querySelectorAll("[data-tab-content]");
         tabs.forEach((tab) => {
-            tab.addEventListener('click', () => {
+            tab.addEventListener("click", () => {
                 const target = document.querySelector(tab.dataset.tabTarget);
                 tabContents.forEach((tabContent) => {
                     console.log(tabContent);
-                    tabContent.classList.remove('active');
+                    tabContent.classList.remove("active");
                 });
                 tabs.forEach((tab) => {
-                    tab.classList.remove('active');
+                    tab.classList.remove("active");
                 });
-                tab.classList.add('active');
-                target.classList.add('active');
+                tab.classList.add("active");
+                target.classList.add("active");
             });
         });
 
-        const closeBanner = document.querySelector('.close_banner');
-        const banner = document.querySelector('.my_progress_third_card');
-        closeBanner.addEventListener('click', () => {
-            banner.style.display = 'none';
+        const closeBanner = document.querySelector(".close_banner");
+        const banner = document.querySelector(".my_progress_third_card");
+        closeBanner.addEventListener("click", () => {
+            banner.style.display = "none";
         });
-        const tabs_wrap = document.querySelector('.tabs_wrap ul');
-        const he = document.querySelector('.mobile_view h1');
-        const hes = document.querySelector('.mobile_view span');
+        const tabs_wrap = document.querySelector(".tabs_wrap ul");
+        const he = document.querySelector(".mobile_view h1");
+        const hes = document.querySelector(".mobile_view span");
 
         const mobileDropdown = (text) => {
-            var x = window.matchMedia('(max-width: 700px)');
-            if (text != '') {
+            var x = window.matchMedia("(max-width: 700px)");
+            if (text != "") {
                 he.innerHTML = text;
             }
             if (x.matches) {
-                if (tabs_wrap.style.display === 'flex') {
-                    console.log('here');
-                    tabs_wrap.style.display = 'none';
-                    hes.innerHTML = '˅';
+                if (tabs_wrap.style.display === "flex") {
+                    console.log("here");
+                    tabs_wrap.style.display = "none";
+                    hes.innerHTML = "˅";
                 } else {
-                    console.log('here else');
-                    tabs_wrap.style.display = 'flex';
-                    hes.innerHTML = '^';
+                    console.log("here else");
+                    tabs_wrap.style.display = "flex";
+                    hes.innerHTML = "^";
                 }
             }
         };
@@ -648,80 +737,74 @@
         var selectedImages = []; // Array to store selected images
         var hashtags = []; // Array to store hashtags
 
-        document.getElementById('images').addEventListener('change', function (event) {
-            var files = event.target.files;
-            for (var i = 0; i < files.length; i++) {
-                selectedImages.push(files[i]); // Store selected image in the array
-            }
-            console.log(files);
-            displaySelectedImages(); // Display selected images
-            displayFirstSelectedImage();
-        });
+        document
+            .getElementById("images")
+            .addEventListener("change", function (event) {
+                var files = event.target.files;
+                for (var i = 0; i < files.length; i++) {
+                    selectedImages.push(files[i]); // Store selected image in the array
+                }
+                console.log(files);
+                displaySelectedImages(); // Display selected images
+                displayFirstSelectedImage(0);
+            });
 
         // Function to display selected images
         function displaySelectedImages() {
-            var previewContainer = document.querySelector('.preview-images');
-            previewContainer.innerHTML = '';
+            var previewContainer = document.querySelector(".preview-images");
+            previewContainer.innerHTML = "";
             selectedImages.forEach(function (image, index) {
                 var reader = new FileReader();
                 reader.onload = function (event) {
-                    var imageDiv = document.createElement('div');
-                    imageDiv.classList.add('image-wrapper');
-                    // document.querySelectorAll('.image-wrapper').forEach(function (container, index) {
-                    //     container.addEventListener('click', function () {
-                    //         // Get the URL of the clicked image
-                    //         var clickedImageUrl = selectedImages[index].url; // Assuming the URL is stored in a 'url' property
-                    //         console.log(clickedImageUrl); // Check if this prints in the console
+                    var imageDiv = document.createElement("div");
+                    imageDiv.classList.add("image-wrapper");
 
-                    //         // Replace the first image with the clicked image
-                    //         replaceFirstImage(clickedImageUrl);
-                    //     });
-                    // });
-                    var imgElement = document.createElement('img');
+                    var imgElement = document.createElement("img");
                     imgElement.src = event.target.result;
-                    imgElement.classList.add('preview-image');
-                    document.querySelectorAll('.preview-image').forEach(function (img) {
-                        img.addEventListener('click', handlePreviewImageClick);
+                    imgElement.classList.add("preview-image");
+                    imgElement.dataset.index = index;
+                    document.querySelectorAll(".preview-image").forEach(function (img) {
+                        img.addEventListener("click", handlePreviewImageClick);
                     });
                     imageDiv.appendChild(imgElement);
 
-                    var removeButton = document.createElement('button');
-                    removeButton.innerHTML = 'Remove';
-                    removeButton.classList.add('remove-button');
-                    removeButton.addEventListener('click', function () {
+                    var removeButton = document.createElement("button");
+                    removeButton.innerHTML = "Remove";
+                    removeButton.classList.add("remove-button");
+                    removeButton.addEventListener("click", function () {
                         selectedImages.splice(index, 1);
                         displaySelectedImages();
-                        displayFirstSelectedImage();
+                        displayFirstSelectedImage(0);
                     });
 
-                    var rightArrowDiv = document.createElement('div');
-                    rightArrowDiv.classList.add('rightArrowDiv');
+                    var rightArrowDiv = document.createElement("div");
+                    rightArrowDiv.classList.add("rightArrowDiv");
 
-                    var rightArrow = document.createElement('button');
-                    rightArrow.innerHTML = '>';
-                    rightArrow.classList.add('arrow-button', 'right-arrow');
-                    rightArrow.addEventListener('click', function () {
+                    var rightArrow = document.createElement("button");
+                    rightArrow.innerHTML = ">";
+                    rightArrow.classList.add("arrow-button", "right-arrow");
+                    rightArrow.addEventListener("click", function () {
                         swapImages(index, index + 1);
                     });
 
-                    var leftArrowDiv = document.createElement('div');
-                    leftArrowDiv.classList.add('leftArrowDiv');
+                    var leftArrowDiv = document.createElement("div");
+                    leftArrowDiv.classList.add("leftArrowDiv");
 
-                    var leftArrow = document.createElement('button');
-                    leftArrow.innerHTML = '<';
-                    leftArrow.classList.add('arrow-button', 'left-arrow');
-                    leftArrow.addEventListener('click', function () {
+                    var leftArrow = document.createElement("button");
+                    leftArrow.innerHTML = "<";
+                    leftArrow.classList.add("arrow-button", "left-arrow");
+                    leftArrow.addEventListener("click", function () {
                         console.log(index, "called");
                         swapImages(index, index - 1);
                     });
 
-                    var container = document.createElement('div');
-                    container.classList.add('preview-image-container');
+                    var container = document.createElement("div");
+                    container.classList.add("preview-image-container");
                     leftArrowDiv.appendChild(leftArrow);
                     rightArrowDiv.appendChild(rightArrow);
 
-                    var leftImageRightDiv = document.createElement('div');
-                    leftImageRightDiv.classList.add('leftImageRight');
+                    var leftImageRightDiv = document.createElement("div");
+                    leftImageRightDiv.classList.add("leftImageRight");
                     leftImageRightDiv.appendChild(leftArrowDiv);
                     leftImageRightDiv.appendChild(imageDiv);
                     leftImageRightDiv.appendChild(rightArrowDiv);
@@ -737,35 +820,27 @@
         // Function to handle click on preview images
         function handlePreviewImageClick(event) {
             // Get the source URL of the clicked image
-            var clickedImageUrl = event.target.src;
+            var index = parseInt(event.target.dataset.index);
+            console.log("Clicked image index:", index);
+            displayFirstSelectedImage(index);
+            // var clickedImageUrl = event.target.src;
+            // console.log(event);
 
-            // Select the first image container
-            var firstImageContainer = document.querySelector('.first-image');
+            // // Select the first image container
+            // var firstImageContainer = document.querySelector(".first-image");
 
-            // Clear existing content
-            firstImageContainer.innerHTML = '';
+            // // Clear existing content
+            // firstImageContainer.innerHTML = "";
 
-            // Create a new image element
-            var imgElement = document.createElement('img');
-            imgElement.src = clickedImageUrl;
-            imgElement.classList.add('preview-image');
+            // // Create a new image element
+            // var imgElement = document.createElement("img");
+            // imgElement.src = clickedImageUrl;
+            // imgElement.classList.add("preview-image");
 
-            // Append the new image element to the first image container
-            firstImageContainer.appendChild(imgElement);
+            // // Append the new image element to the first image container
+            // firstImageContainer.appendChild(imgElement);
         }
 
-        function replaceFirstImage(imageUrl) {
-            var firstImageContainer = document.querySelector('.first-image');
-            firstImageContainer.innerHTML = ''; // Clear existing content
-
-            // Create img element
-            var imgElement = document.createElement('img');
-            imgElement.src = imageUrl;
-            imgElement.classList.add('preview-image');
-
-            // Append img element to the .first-image container
-            firstImageContainer.appendChild(imgElement);
-        }
         function swapImages(currentIndex, newIndex) {
             if (newIndex >= 0 && newIndex < selectedImages.length) {
                 var temp = selectedImages[currentIndex];
@@ -774,128 +849,187 @@
                 // console.log("swaped" , currentIndex , " and " , newIndex);
             }
             displaySelectedImages(); // Re-render images after swap
-            var posting_images = selectedImages;  // array for images
+            var posting_images = selectedImages; // array for images
             // for (var i = 0; i < posting_images.length; i++) {
             //     console.log('Image:', posting_images[i].name);
             // }
         }
 
-        function displayFirstSelectedImage() {
-            var firstImageContainer = document.querySelector('.first-image');
+        function displayFirstSelectedImage(e) {
+            var firstImageContainer = document.querySelector(".first-image");
 
             // Clear existing content
-            firstImageContainer.innerHTML = '';
+            firstImageContainer.innerHTML = "";
 
             // Check if there are selected images
             if (selectedImages.length > 0) {
                 var reader = new FileReader();
                 reader.onload = function (event) {
                     // Create img element
-                    var imgElement = document.createElement('img');
+                    var imgElement = document.createElement("img");
                     imgElement.src = event.target.result;
-                    imgElement.classList.add('preview-image');
+                    imgElement.classList.add("preview-image");
 
                     // Append img element to the first image container
-                    firstImageContainer.appendChild(imgElement);
+
+                    // Create left and right buttons
+                    var leftButton = document.createElement("button");
+                    leftButton.classList.add("previous-button");
+                    var leftPTag = document.createElement("p");
+                    leftPTag.textContent = "←";
+                    leftButton.appendChild(leftPTag);
+                    // leftButton.textContent = ;
+                    leftButton.addEventListener("click", function () {
+                        var prevIndex = e > 0 ? e - 1 : selectedImages.length - 1;
+                        displayFirstSelectedImage(prevIndex);
+                    });
+
+                    var rightButton = document.createElement("button");
+                    var rightPTag = document.createElement("p");
+                    rightPTag.textContent = "→";
+                    rightButton.appendChild(rightPTag);
+                    rightButton.classList.add("next-button");
+                    rightButton.addEventListener("click", function () {
+                        var nextIndex = e < selectedImages.length - 1 ? e + 1 : 0;
+                        displayFirstSelectedImage(nextIndex);
+                    });
+                    var parentDiv = document.createElement("div");
+                    var parentImgDiv = document.createElement("div");
+                    parentImgDiv.classList.add("parentImgDiv");
+                    parentImgDiv.appendChild(imgElement);
+                    parentDiv.classList.add("parentDiv");
+                    parentDiv.appendChild(leftButton);
+                    parentDiv.appendChild(rightButton);
+                    // Append buttons to the first image container
+                    firstImageContainer.appendChild(parentImgDiv);
+                    firstImageContainer.appendChild(parentDiv);
                 };
-                // Read the data URL of the first image
-                reader.readAsDataURL(selectedImages[0]);
+                // Read the data URL of the image at index 'e'
+                reader.readAsDataURL(selectedImages[e]);
             }
         }
 
-        var imageSection = document.querySelector('.first-image');
-        var imageSection1 = document.querySelector('.preview-images');
-        var allImages = document.querySelector('.allImages');
-        var toggleImagesButton = document.getElementById('toggleImagesButton');
+
+        function replaceFirstImage(imageUrl) {
+            var firstImageContainer = document.querySelector(".first-image");
+            firstImageContainer.innerHTML = ""; // Clear existing content
+            console.log("replaceFirstImage");
+            // Create img element
+            var imgElement = document.createElement("img");
+            imgElement.src = imageUrl;
+            imgElement.classList.add("preview-image");
+
+            // Append img element to the .first-image container
+            firstImageContainer.appendChild(imgElement);
+        }
+
+
+        var imageSection = document.querySelector(".first-image");
+        var messageContainer = document.querySelector(".message-container");
+        var inputImage = document.querySelector("#images");
+        var hashtagsContainer = document.querySelector(".hashtags-container");
+        var imageSection1 = document.querySelector(".preview-images");
+        var allImages = document.querySelector(".allImages");
+        var toggleImagesButton = document.getElementById("toggleImagesButton");
 
         // Add event listener to the button
-        toggleImagesButton.addEventListener('click', function () {
+        toggleImagesButton.addEventListener("click", function () {
             // Toggle the display property of imageSection and allImages
-            if (imageSection.style.display !== 'none') {
-                imageSection.style.display = 'none';
-                imageSection1.style.display = 'none';
-                allImages.style.display = 'block';
-                toggleImagesButton.innerHTML = 'Edit'; // Change button text to 'Edit'
-                var allImagesDiv = document.querySelector('.allImages');
+            if (imageSection.style.display !== "none") {
+                if (selectedImages.length > 0) {
+                    imageSection.style.display = "none";
+                    imageSection1.style.display = "none";
+                    messageContainer.style.display = "block";
+                    hashtagsContainer.style.display = "block";
+                    allImages.style.display = "flex";
+                    toggleImagesButton.innerHTML = "Edit"; // Change button text to 'Edit'
+                    var allImagesDiv = document.querySelector(".allImages");
+                    inputImage.style.display = "none";
+                    allImagesDiv.innerHTML = "";
+                    selectedImages.forEach(function (image) {
+                        // Create img element
+                        var imgElement = document.createElement("img");
 
-                // Clear existing content
-                allImagesDiv.innerHTML = '';
+                        // Set src attribute to the image data URL
+                        imgElement.src = URL.createObjectURL(image);
 
-                // Loop through selectedImages array
-                selectedImages.forEach(function (image) {
-                    // Create img element
-                    var imgElement = document.createElement('img');
-
-                    // Set src attribute to the image data URL
-                    imgElement.src = URL.createObjectURL(image);
-
-                    // Append img element to the div
-                    allImagesDiv.appendChild(imgElement);
-                });
+                        // Append img element to the div
+                        allImagesDiv.appendChild(imgElement);
+                    });
+                } else {
+                    alert("Please select at least one image");
+                }
             } else {
-                imageSection.style.display = 'block';
-                imageSection1.style.display = 'flex';
-                allImages.style.display = 'none';
-                toggleImagesButton.innerHTML = 'Save'; // Change button text back to 'Shrey'
+                inputImage.style.display = "block";
+                hashtagsContainer.style.display = "none";
+                messageContainer.style.display = "none";
+                imageSection.style.display = "inline-block";
+                hashtagsContainer.style.display = "block";
+                imageSection1.style.display = "flex";
+                allImages.style.display = "none";
+                toggleImagesButton.innerHTML = "Save"; // Change button text back to 'Shrey'
             }
         });
-
 
         // Event listener for add hashtag button
-        document.getElementById('add-hashtag').addEventListener('click', function () {
-            var hashtagInput = document.getElementById('hashtags');
-            var hashtag = hashtagInput.value.trim(); // Remove leading and trailing spaces
-            if (hashtag !== '') {
-                hashtags.push('#' + hashtag); // Add hashtag with '#' symbol to the array
-                displayHashtags(); // Display hashtags
-                hashtagInput.value = ''; // Clear input field
-            }
-        });
+
+
+
+        document
+            .getElementById("add-hashtag")
+            .addEventListener("click", function () {
+                var hashtagInput = document.getElementById("hashtags");
+                var hashtag = hashtagInput.value.trim(); // Remove leading and trailing spaces
+                if (hashtag !== "") {
+                    hashtags.push("#" + hashtag); // Add hashtag with '#' symbol to the array
+                    displayHashtags(); // Display hashtags
+                    hashtagInput.value = ""; // Clear input field
+                }
+            });
 
         // event listener for post buttopn
-        document.getElementById('post-form').addEventListener('submit', function (event) {
-            event.preventDefault();
-            if (hashtags.length < 3) {
-                alert('Please add at least 3 hashtags.');
-                // return ;
-            }
-            else {
+        document
+            .getElementById("post-form")
+            .addEventListener("submit", function (event) {
+                event.preventDefault();
+                if (hashtags.length < 3) {
+                    alert("Please add at least 3 hashtags.");
+                    // return ;
+                } else {
+                    var formData = new FormData(this);
 
-                var formData = new FormData(this);
+                    var title = formData.get("title"); // title of the post
+                    var message = formData.get("message"); // message of the post
+                    console.log("Title:", title);
+                    console.log("Message:", message);
+                    var hashtag_data = hashtags;
+                    console.log("Hashtags:");
+                    hashtag_data.forEach(function (hashtag) {
+                        console.log(hashtag); // individual hashtags
+                    });
 
-                var title = formData.get('title');  // title of the post 
-                var message = formData.get('message'); // message of the post 
-                console.log('Title:', title);
-                console.log('Message:', message);
-                var hashtag_data = hashtags;
-                console.log('Hashtags:');
-                hashtag_data.forEach(function (hashtag) {
-                    console.log(hashtag); // individual hashtags
-                });
-
-                // Extract and log each image
-                console.log("Images:");
-                var posting_images = selectedImages;  // array for images
-                for (var i = 0; i < posting_images.length; i++) {
-                    console.log('Image:', posting_images[i].name);
+                    // Extract and log each image
+                    console.log("Images:");
+                    var posting_images = selectedImages; // array for images
+                    for (var i = 0; i < posting_images.length; i++) {
+                        console.log("Image:", posting_images[i].name);
+                    }
                 }
-
-            }
-        });
+            });
 
         // Function to display hashtags
         function displayHashtags() {
-            var hashtagsList = document.getElementById('hashtags-list');
-            hashtagsList.innerHTML = '';
+            var hashtagsList = document.getElementById("hashtags-list");
+            hashtagsList.innerHTML = "";
             hashtags.forEach(function (hashtag, index) {
-                var hashtagElement = document.createElement('div');
+                var hashtagElement = document.createElement("div");
                 hashtagElement.textContent = hashtag;
-                hashtagElement.classList.add('hashtag');
+                hashtagElement.classList.add("hashtag");
 
-                var removeButton = document.createElement('button');
-                removeButton.innerHTML = 'X';
-                removeButton.classList.add('remove-hashtag');
-                removeButton.addEventListener('click', function () {
+                var removeButton = document.createElement("button");
+                removeButton.innerHTML = "X";
+                removeButton.classList.add("remove-hashtag");
+                removeButton.addEventListener("click", function () {
                     hashtags.splice(index, 1);
                     displayHashtags();
                 });

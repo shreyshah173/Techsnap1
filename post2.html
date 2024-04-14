@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style/_headers/headers.css" />
+    <link rel="stylesheet" href="/style/_pages/edit_profile.css" />
+    <link rel="stylesheet" href="/style/_pages/my_progress.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            /* max-width: 600px; */
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #ffffff;
+            max-width: 80%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .wholeBody {
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            /* min-width: 20%; */
+            overflow: hidden;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea#message {
+            /* Adjust this value as needed */
+            /* min-height: 40%; */
+            resize: vertical;
+            /* Allow vertical resizing */
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .preview-images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .preview-image {
+            position: relative;
+            max-width: 500px;
+            max-height: 500px;
+            margin: 5px;
+            height: 10em;
+            width: 10em;
+            /* padding: 5%; */
+        }
+
+        .image-wrapper {
+            border: 2px solid #ddd7d7;
+        }
+
+        .remove-button {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .preview-image-container {
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .hashtags-container {
+            margin-bottom: 10px;
+        }
+
+        .hashtag {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px;
+            background-color: rgb(10, 24, 46);
+            border-radius: 5px;
+            color: white;
+        }
+
+        .remove-hashtag {
+            margin-left: 5px;
+            cursor: pointer;
+            width: 20px;
+        }
+
+        .remove-button {
+            opacity: 0.7;
+            margin-bottom: 3%;
+        }
+
+        .preview-image-container {
+            aspect-ratio: 16/9;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            /* Adjust the values as needed */
+        }
+
+        .leftImageRight {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .preview-image-container {
+            /* Your existing styles for the sub-div */
+            /* Add additional styles as needed */
+            /* flex-basis: 25%; */
+            margin: 1%;
+            padding-top: 1%;
+            padding-bottom: 5%;
+            /* For large screens, 4 sub-divs in a row */
+        }
+
+        @media screen and (max-width: 1024px) {
+            .preview-image-container {
+                flex-basis: 33.33%;
+                /* For medium screens, 3 sub-divs in a row */
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .preview-image-container {
+                flex-basis: 50%;
+                /* For small screens, 2 sub-divs in a row */
+            }
+        }
+
+        .arrow-button {
+            background-color: rgb(248, 248, 248);
+            border: #ffffff;
+            font-size: 1em;
+            width: 30px;
+        }
+
+        .first-image img {
+            /* background-color: red; */
+            border: 2px solid red;
+            width: 90%;
+            height: auto;
+        }
+
+        .allImages {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+            padding: 2% 3%;
+        }
+
+        .allImages img {
+            /* or remove display property to use default behavior */
+            width: 100%;
+            height: 80%;
+            border: 2px solid red;
+            margin: 2%;
+        }
+
+
+        @media (max-width: 786px) {
+            .first-image {
+                display: none;
+            }
+
+            .pre-preview-div {
+                width: 100%;
+            }
+
+            .allImages {
+                display: block;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .allImages img {
+                /* display: block; */
+                height: 50vw;
+                width: 50vw;
+            }
+        }
+
+        .message-container,
+        .hashtags-container {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- --------------------------header------------------------------------ -->
+    <header>
+        <div class="sub_header">
+            <div class="Header_icon">
+                <div class="ham" onclick="slideMenu()">
+                    <img id="ham_icon" src="https://img.icons8.com/android/96/000000/menu.png" />
+                </div>
+                <img src="/assets/icon.svg" alt="Logo" />
+            </div>
+
+            <div class="Header_Profile">
+                <div class="Icons">
+                    <div class="points" onclick="goalsDrop()">
+                        <p><span>🔥 </span>0</p>
+                        <p><span>🎯 </span> 0</p>
+                    </div>
+                    <div class="score">
+                        <p class="shock" onclick="powerhandler()"><span>⚡ </span> 200</p>
+                        <p class="coin" onclick="Coinhandler()">
+                            <span><img src="/assets/coin (3).png" alt="notifiction" /></span>
+                            50
+                        </p>
+                    </div>
+                </div>
+
+                <img src="/assets/bell.svg" alt="notifiction" class="notification_bell" />
+
+                <div class="notification_dropdown">
+                    <div class="notification_item">
+                        <div class="notification_item_icon">
+                            <div class="icon_holder">
+                                <img src="./assets/profile.jpg" alt="prifle" />
+                            </div>
+                        </div>
+                        <div class="notification_content">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Dolore
+                            </p>
+                            <button>Join Community</button>
+                        </div>
+                        <div class="time">
+                            <p>2h</p>
+                            <h1 class="notification_dots">...</h1>
+                        </div>
+                    </div>
+                    <div class="notification_item">
+                        <div class="notification_item_icon">
+                            <div class="icon_holder">
+                                <img src="./assets/profile.jpg" alt="prifle" />
+                            </div>
+                        </div>
+                        <div class="notification_content">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Dolore
+                            </p>
+                            <button>Join Community</button>
+                        </div>
+                        <div class="time">
+                            <p>2h</p>
+                            <h1 class="notification_dots">...</h1>
+                        </div>
+                    </div>
+                    <div class="notification_item">
+                        <div class="notification_item_icon">
+                            <div class="icon_holder">
+                                <img src="./assets/profile.jpg" alt="prifle" />
+                            </div>
+                        </div>
+                        <div class="notification_content">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Dolore
+                            </p>
+                            <button>Join Community</button>
+                        </div>
+                        <div class="time">
+                            <p>2h</p>
+                            <h1 class="notification_dots">...</h1>
+                        </div>
+                    </div>
+                    <div class="see_all_notifications">
+                        <a href="notification.html">
+                            <p>See all notifications</p>
+                        </a>
+                    </div>
+                </div>
+                <img class="profile_pic avatar" src="/assets/profile.jpg" alt="avatar" />
+                <div class="profile_dropDown">
+                    <a href="#" class="profile_dropDown_item">
+                        <span><img
+                                src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/000000/external-dashboard-blogger-vitaliy-gorbachev-lineal-vitaly-gorbachev.png" /></span>
+                        <p>View Dashboard</p>
+                    </a>
+                    <a href="#" class="profile_dropDown_item">
+                        <span><img src="https://img.icons8.com/ios/50/000000/user.png" /></span>
+                        <p>View Profile</p>
+                    </a>
+                    <a href="#" class="profile_dropDown_item">
+                        <span><img src="https://img.icons8.com/ios/50/000000/user-not-found.png" /></span>
+                        <p>Edit</p>
+                    </a>
+                    <a href="#" class="profile_dropDown_item">
+                        <span><img src="https://img.icons8.com/windows/32/000000/exit.png" /></span>
+                        <p>Logout</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="goals_DropDown">
+            <div class="title">
+                <h2>Daily Goals</h2>
+                <p>Edit Goals</p>
+            </div>
+            <div class="info_text">
+                <p>How does streak work , know more obout here</p>
+                <span onclick="closeInfo()">X</span>
+            </div>
+            <div class="goals_section">
+                <div class="left_section">
+                    <div class="total_streak_day">
+                        <div class="title">
+                            <p>Total Streak</p>
+                            <img src="https://img.icons8.com/color/48/000000/share--v1.png" />
+                        </div>
+                        <div class="streak_body">
+                            <img
+                                src="https://img.icons8.com/external-vitaliy-gorbachev-flat-vitaly-gorbachev/58/000000/external-fire-blogger-vitaliy-gorbachev-flat-vitaly-gorbachev.png" />
+                            <div class="body_details">
+                                <p>0</p>
+                                <span>Day Streak</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="total_streak_freeeze">
+                        <div class="streak_body">
+                            <img
+                                src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/64/000000/external-fire-kitchen-kiranshastry-lineal-color-kiranshastry.png" />
+                            <div class="body_details">
+                                <p>0</p>
+                                <span>Streak Freeze</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right_section">
+                    <div class="right_box">
+                        <div class="title">
+                            <p>Daily Goal</p>
+                            <div class="time_box">
+                                <span>11:34:13</span>
+                            </div>
+                            <div class="streak_body">
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAJEUlEQVRoge2ae1BU1x3HP3cXMD5YlLcoAjEYrS0m8ZVBTUAj7Zg2mUx9RMF0kk7zKHE6MY5R0xonbafKxDjTIjZOp5pI0CbG2o4xVtGCWOOrRK1GBSuCsYCEFRAJht17+sfZZe+59y6L6J9+Z/aP8/rd3/ee83udu3AP93APPUG7m8JEJvGEkYVgHDAKiAcG+obbgSagCsFJNMq0Cpru1rPvmIiYyhA08oCFwITbkCmAY0AxToq1MlqU0RdPhCdGhc93aJrrfwUZhVNmPpXU5dT+6EDbcWTPzs1mYWF3SGAZ8AoQ2QcRGjAZmIyX34pprMdJgVZGS9Ib/8kUQmwCRqGxecrMp5I8Du2fmmCUQAjAQsTRRxLPoXEBWNpHEma4gOV4OL8qb8laIcQB5NEkrLO5v8eh7ZNtrdoR7v25nYDbOlpiCpE4eA+YH3TSwCgYNw3SxkJCCgyKkv3trdBYC5fOwOkKuNlmWdrmjGTS+D20OeW7Cdc7SE2gq+vY5nC9raHaEe7J/nzXrqt3RERMJoEIdgOPWAadYZA9B2a9AI9kg8PZszCvByoPwO5NULZdtoFNifN5M215N4m0FBfO6BT01nrvpaq6bV0RsTeBf9cXZGw0i+zV0fKROGhLYvo8KKmClSUw4YnQJEASn5gDb22FDy9A1mwA9g15PEBihCQhOtu5crXF2RURmwu8iKZ12IkMuSO+41QOPKwMuGJgxWbI/GFoxXuBzvK/851Ph+EVHkkiRpKou3SFjq4I/7QL9S3ffo+NE7rM60N7LQdFmEkkj4K1/4DEVPs1Xg+cOwb1NXD9muwbEg9D02DMJLkjJlQmz8ArzvREolPXxU/sSIQkIqbyHJBnIVFYIRUzo6oSPloHn38KN67bC3VFw6OzYN5iSA+8n2NVTUFJRHtamHdtZ9HK4nePBtM16NHyxYnzyOjsUyIG/nTCuhPuRih8DfZvQ7r5XsDhgOnPwqJ1uIlg9vIitMyXER4PdZeuwC2dKa1HmXm9nGe+3s1AT0cjYYy2BE4fgu+IDHbqa1+x2Uqi+iSseBoa63pHwA9dh9IS3KePkj8om46GJvprGjk/ms+M6aN5qG4/Eb9cZNQnAS9LgRX26trAtxu1GIPd9HmwapuVxKvT4Jt2qxCHA1LHQnyybDfWQe2XkoAPbvqRf98UahyRJMfHULSugLiYmICMlXOkew6gDScpdrsSbEcWKiScYfDS79QZ7ka5E2YSUbGQtwxyFlrtyN0Ie7dA8Wrcbe0BEuImRd98SZxTV+e/tBoO/hV0r7/HhYcFQJFZYfs4opkMPHuO9DhGFL5mPU4TnpBxYd7r9s4gOgGeXYK76Dj5g3MCJG4dIq6xGgoXq/OHjeyOMQaNF9qpbCEiMolHZrEBzHpBnVRVKQ3bTKJgt/RKPcB9vYX837xLzbcOkiN0SULvlIOlJfK4Ks9+3qQgk0UWsSGJEEYWRtsZGCXTDiM+Wqd6p6hYWPUXCAs3PVTIXWusAyEkiTd+RU3dFZKHJVH0+7XEDRoQmK/r8PE6Vcb4GTBAyUs1vGSFJiKLogAypqpph6dLxgkj8pZZd6J0K8xNhTkpMCcF95x08l/9RYBEwa+JS02H3GXqusO7unMvQNpnxlSzlhmhifjS527c/1119NwxNdg5HDBTNSlKt8LbC7ptyE0/8ttSqGluJTnaJUn4vdP3F0oZfrS54fxxVV6aSQfBg6GJCBKUtjluNNaq7dSx0oi71wt4L/CWFRcrblLUdYS4aMPuRSdCyhhVZv1ltW3WQcPiSaxENAYp7QGmuqm5Xm3HDVPbfptA1rJ+EiP0djZ0+rzTtSvqGn+sCfYMf00TgMvc0acK8XYQjs5I0UbRrX8RK3zeSburdx6AXUAUtCvxvuOGOh4zVG03mQq2hBGQmAINtWjA+51lgMENDk2DuOHqGvMOxSap7fZWs5aW8tLuaDUq7YYQ5/XyWRmxu9dr8PKa7reuYSChafBKgbojzfVQe67nZ5h1EFwLTQSqlNalM+romEmqq9V1mXYY4c/LjAolpsLbH1sj9Z4PlPwLVwyMVuMxNSYd5MWHArujdVI5WqcrpF/3F0POMFlP7C0OzCleLSOwy5DwZc+VP/+xMRs0QEsTlKxR+zKfVAsvTxecPmReecrcYd0RnXKkw5G42SYvCoyYt9jk+5th5Vz5UDPik+1JeLrgrbnWmDTXlG+dKDXbqY6T8pBEtMNcQ94ABrB7kzop/WFZFBlReQCW/ABav7YqbUZLE7yeA1+Uqf05efCAmljwmeUu7qhWhuUhwdxvsdIq2w5X/6vOWLROeicjKg9A7oNQUgDuBqvU5nr4cI2cYyYxNA3y16p9X1VD+SdmKVvMHRCssMpiMF5qMQaerNnSWI24eEoWVmYXDfKYpIyR7hh8hdU51bD9GBAJ6w/BSFMK9eYzULHT2NNKP1K0Uiz+2HZHfBXYeqWzbDsc+ps68YFxUgG72xRdh5qzcOQz+as5a09iaJo9iYM7zCRAo9COhBwKAjEZFxGcBwIR0BUNG49D0v3q5JYmWRSVltgraweHQ9pE/lpZBhhx9SL8bCK0GypaQY+XDz3mCuIxchEmexmeLq+DohOsC6pPynri8C6ZxdrBFSNd7NzFVsMGaVv5U602CfO1CrZZF/SCCICYxgdgKi+Hp8M7e6w744fXI1Px+ppA1I9O9F3QTQx+rXr1ovR8VhJbtQoW9KRnaCJZDMJLGTBeGXBFw7I/w9SnQ4noHQ7ugNU/VY+TxHH6k63t5WZPy3uVhopM4nFSgbnoAnj8xzK3Gjaytyqr+KoaNiy1GrbEBWBabz7R9f6zwgxi6GIXgkctgw6ndM+znpc1ts3drgKvB47vk8Gu/BPjdY9RsxN4eNIXoEPi9j70yGO2AfN9sBEDIiHD96EnMVX90NNwWSaApyrsL/UCeJ/+5Ic6Tkb0qcIRj5GLzlo0bFzXHaEeWNyTdwqGPpdqvui/FMjHpvS8TbQi+AP38U6wgBcKd/55OovB6OQCeQgm0fvyWQeOAlvoR0lfCfhxd/8wkEUsXh5H8BDy03I8gTvkG77KrgoHXxBOubaf5rv5/Hu4h3sIjv8D8wYwb1ycaQkAAAAASUVORK5CYII=" />
+                                <div class="body_details">
+                                    <p>10/200</p>
+                                    <span>Points</span>
+                                </div>
+                            </div>
+                            <div class="progress_streak">
+                                <div class="progress_bar">
+                                    <div class="bar" style="width: 10%"></div>
+                                </div>
+                                <button>Achieve Score</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="power_dropDown">
+            <div class="power_item">
+                <p>Highest xp : 200</p>
+            </div>
+            <div class="power_item">
+                <p>Curent xp : 10</p>
+            </div>
+            <div class="buttons">
+                <button>Reedem</button>
+            </div>
+        </div>
+        <div class="coin_dropDown">
+            <div class="coin_item">
+                <p>Highest coins : 200</p>
+            </div>
+            <div class="coin_item">
+                <p>Curent coins : 10</p>
+            </div>
+            <div class="buttons">
+                <button>Reedem</button>
+            </div>
+        </div>
+    </header>
+    <div class="wholeBody">
+        <!-- //------------------------sidenav--------------------------- -->
+        <aside class="sideMenu">
+            <div class="myMenu">
+                <a href="index.html" id="active">
+                    <img src="/assets/self-growth3.png" alt="progress" />
+                    <p>My Progress</p>
+                </a>
+                <a href="myFeed.html">
+                    <img src="/assets/self-growth3.png" alt="progress" />
+                    <p>My Feed</p>
+                </a>
+                <a href="topics.html">
+                    <img src="/assets/self-growth3.png" alt="progress" />
+                    <p>Topics</p>
+                </a>
+                <a href="Competitions.html">
+                    <img src="/assets/stage.png" alt="bookmark" />
+                    <p>Competitions</p>
+                </a>
+                <a href="leaderBoard.html">
+                    <img src="/assets/leaderboard.png" alt="leader" />
+                    <p>Leaderboard</p>
+                </a>
+            </div>
+            <div class="myMenu">
+                <div class="title">
+                    <h4>catalog</h4>
+                </div>
+                <a href="career.html">
+                    <img src="/assets/career-choice.png" alt="progress" />
+                    <p>Career Paths</p>
+                </a>
+                <a href="courses.html">
+                    <img src="/assets/online-course2.png" alt="leader" />
+                    <p>Courses</p>
+                </a>
+                <a href="projects.html">
+                    <img src="/assets/project-management (2).png" alt="leader" />
+                    <p>Projects</p>
+                </a>
+                <a href="##">
+                    <img src="/assets/project.png" alt="leader" />
+                    <p>Practice</p>
+                </a>
+                <a href="assesments.html">
+                    <img src="/assets/clipboard.png" alt="leader" />
+                    <p>Assessments</p>
+                </a>
+                <a href="liveEvents.html">
+                    <img src="/assets/deadline.png" alt="leader" />
+                    <p>Live Events</p>
+                </a>
+            </div>
+            <div class="myMenu">
+                <div class="title">
+                    <h4>PROFILE</h4>
+                </div>
+                <a href="myProfile.html">
+                    <img src="/assets/account (1).png" alt="progress" />
+                    <p>My profile</p>
+                </a>
+                <a href="editProfile.html">
+                    <img src="/assets/edit (1).png" alt="bookmark" />
+                    <p>Edit profile</p>
+                </a>
+                <a href="accountSettings.html">
+                    <img src="/assets/user (1).png" alt="leader" />
+                    <p>Account Settings</p>
+                </a>
+                <a href="##">
+                    <img src="/assets/logout (1).png" alt="leader" />
+                    <p>Logout</p>
+                </a>
+            </div>
+            <button>Contact us</button>
+        </aside>
+
+        <!---------------My progress section---------------------->
+        <div class="container">
+            <h1 style="text-align: center; font-weight: bold; font-size: 40px">
+                Create a Post
+            </h1>
+            <form method="post" enctype="multipart/form-data" id="post-form">
+                <div>
+
+                    <div class="w-full bg-white shadow-md rounded-lg hover:shadow-2xl  px-2">
+                        <div class="flex justify-between">
+                            <div class="flex">
+                                <div class="h-16 w-16">
+                                    <img class="rounded-full object-cover md:w-48 md:h-auto md:rounded-l-none"
+                                        src="https://avatars.githubusercontent.com/u/122403035?v=4"
+                                        alt="Alan Biju profile picture" />
+                                </div>
+                                <div class="px-4 md:text-left">
+                                    <h2 class="text-md font-bold text-gray-800">Alan Biju</h2>
+                                    <p class="pt-2 text-gray-600 text-sm">TechSnap DevOps</p>
+                                </div>
+                            </div>
+                            <div>...</div>
+                        </div>
+                        <div class="py-2">
+                            <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed consequat
+                                vehicula turpis, vitae facilisis justo fermentum at. Duis convallis mauris nec dolor
+                                molestie, nec commodo orci sollicitudin. Vivamus volutpat dapibus felis,</p>
+                        </div>
+                    </div>
+
+
+
+                    <div class="hashtags-container mt-8">
+                        <label for="hashtags">Hashtags:</label>
+                        <div style="position: relative">
+                            <input type="text" id="hashtags" name="hashtags" style="padding-right: 30px" />
+                            <!-- Adjust padding to accommodate button width -->
+                            <button type="button" id="add-hashtag" style="
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    background-color: rgb(10, 24, 46);
+                    font-weight: bold;
+                    font-size: 1em;
+                    height: 70%;
+                    padding: 0.5em;
+                    margin: 0.2em;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    transition: opacity 0.3s;
+                    color: white;
+                  ">
+                                Add
+                            </button>
+                        </div>
+                        <div id="hashtags-list"></div>
+                    </div>
+
+                    <div class="message-container">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                    </div>
+
+                    <div class="mt-4" style="border: 2px solid #d3d3d3">
+                        <label for="images">Images:</label>
+                        <input type="file" id="images" name="images[]" accept="image/*" multiple required />
+                        <div class="image-section flex w-full flex-wrap justify-between">
+                            <div class="first-image w-1/2 flex-shrink-0">
+
+                            </div>
+                            <div class="pre-preview-div w-1/2 flex-shrink-0">
+                                <div class="preview-images">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap ">
+                            <div class="flex allImages overflow-x-auto">
+
+                            </div>
+                        </div>
+
+                        <div style="text-align: center">
+                            <button id="toggleImagesButton" type="button" style="
+                    color: white;
+                    height: 2em;
+                    width: 10%;
+                    background-color: rgb(10, 24, 46);
+                    border-radius: 10px;
+                  ">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center">
+                    <input type="submit" value="Post" id="submit-button" style="
+                background-color: rgb(10, 24, 46);
+                font-weight: bold;
+                font-size: 1em;
+                width: 10vw;
+                height: auto;
+                padding: 1%;
+                border-radius: 20px;
+                cursor: pointer;
+                transition: opacity 0.3s;
+                color: white;
+              " onmouseover="this.style.color='white'" onmouseout="this.style.color='white'" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="./app.js"></script>
+    <script>
+        document.getElementById("defaultslidebtnOpen").click();
+
+        function slideTab(evt, cityName) {
+            let i, tabcontent, tablinks;
+
+            tabcontent = document.getElementsByClassName("slideTabContent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("slideTabLinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(
+                    "activeSlide",
+                    ""
+                );
+            }
+            document.getElementById(cityName).style.display = "flex";
+            console.log(evt);
+
+            const event = document.getElementsByClassName(evt)[0];
+            event.classList.add("activeSlide");
+        }
+
+        function slidebtn(evt, cityName, defaultTabClass, evts) {
+            let i, tabcontent, tablinks;
+            slideTab(evts, defaultTabClass);
+            tabcontent = document.getElementsByClassName("slidebtnContent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("slidebtnLinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(
+                    "activebtn",
+                    ""
+                );
+            }
+            document.getElementById(cityName).style.display = "flex";
+            evt.currentTarget.className += " activebtn";
+        }
+        const tabs = document.querySelectorAll("[data-tab-target]");
+        const tabContents = document.querySelectorAll("[data-tab-content]");
+        tabs.forEach((tab) => {
+            tab.addEventListener("click", () => {
+                const target = document.querySelector(tab.dataset.tabTarget);
+                tabContents.forEach((tabContent) => {
+                    console.log(tabContent);
+                    tabContent.classList.remove("active");
+                });
+                tabs.forEach((tab) => {
+                    tab.classList.remove("active");
+                });
+                tab.classList.add("active");
+                target.classList.add("active");
+            });
+        });
+
+        const closeBanner = document.querySelector(".close_banner");
+        const banner = document.querySelector(".my_progress_third_card");
+        closeBanner.addEventListener("click", () => {
+            banner.style.display = "none";
+        });
+        const tabs_wrap = document.querySelector(".tabs_wrap ul");
+        const he = document.querySelector(".mobile_view h1");
+        const hes = document.querySelector(".mobile_view span");
+
+        const mobileDropdown = (text) => {
+            var x = window.matchMedia("(max-width: 700px)");
+            if (text != "") {
+                he.innerHTML = text;
+            }
+            if (x.matches) {
+                if (tabs_wrap.style.display === "flex") {
+                    console.log("here");
+                    tabs_wrap.style.display = "none";
+                    hes.innerHTML = "˅";
+                } else {
+                    console.log("here else");
+                    tabs_wrap.style.display = "flex";
+                    hes.innerHTML = "^";
+                }
+            }
+        };
+    </script>
+
+    <script>
+        var selectedImages = []; // Array to store selected images
+        var hashtags = []; // Array to store hashtags
+
+        document
+            .getElementById("images")
+            .addEventListener("change", function (event) {
+                var files = event.target.files;
+                for (var i = 0; i < files.length; i++) {
+                    selectedImages.push(files[i]); // Store selected image in the array
+                }
+                console.log(files);
+                displaySelectedImages(); // Display selected images
+                displayFirstSelectedImage();
+            });
+
+        // Function to display selected images
+        function displaySelectedImages() {
+            var previewContainer = document.querySelector(".preview-images");
+            previewContainer.innerHTML = "";
+            selectedImages.forEach(function (image, index) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    var imageDiv = document.createElement("div");
+                    imageDiv.classList.add("image-wrapper");
+                    // document.querySelectorAll('.image-wrapper').forEach(function (container, index) {
+                    //     container.addEventListener('click', function () {
+                    //         // Get the URL of the clicked image
+                    //         var clickedImageUrl = selectedImages[index].url; // Assuming the URL is stored in a 'url' property
+                    //         console.log(clickedImageUrl); // Check if this prints in the console
+
+                    //         // Replace the first image with the clicked image
+                    //         replaceFirstImage(clickedImageUrl);
+                    //     });
+                    // });
+                    var imgElement = document.createElement("img");
+                    imgElement.src = event.target.result;
+                    imgElement.classList.add("preview-image");
+                    document.querySelectorAll(".preview-image").forEach(function (img) {
+                        img.addEventListener("click", handlePreviewImageClick);
+                    });
+                    imageDiv.appendChild(imgElement);
+
+                    var removeButton = document.createElement("button");
+                    removeButton.innerHTML = "Remove";
+                    removeButton.classList.add("remove-button");
+                    removeButton.addEventListener("click", function () {
+                        selectedImages.splice(index, 1);
+                        displaySelectedImages();
+                        displayFirstSelectedImage();
+                    });
+
+                    var rightArrowDiv = document.createElement("div");
+                    rightArrowDiv.classList.add("rightArrowDiv");
+
+                    var rightArrow = document.createElement("button");
+                    rightArrow.innerHTML = ">";
+                    rightArrow.classList.add("arrow-button", "right-arrow");
+                    rightArrow.addEventListener("click", function () {
+                        swapImages(index, index + 1);
+                    });
+
+                    var leftArrowDiv = document.createElement("div");
+                    leftArrowDiv.classList.add("leftArrowDiv");
+
+                    var leftArrow = document.createElement("button");
+                    leftArrow.innerHTML = "<";
+                    leftArrow.classList.add("arrow-button", "left-arrow");
+                    leftArrow.addEventListener("click", function () {
+                        console.log(index, "called");
+                        swapImages(index, index - 1);
+                    });
+
+                    var container = document.createElement("div");
+                    container.classList.add("preview-image-container");
+                    leftArrowDiv.appendChild(leftArrow);
+                    rightArrowDiv.appendChild(rightArrow);
+
+                    var leftImageRightDiv = document.createElement("div");
+                    leftImageRightDiv.classList.add("leftImageRight");
+                    leftImageRightDiv.appendChild(leftArrowDiv);
+                    leftImageRightDiv.appendChild(imageDiv);
+                    leftImageRightDiv.appendChild(rightArrowDiv);
+                    container.appendChild(leftImageRightDiv);
+                    container.appendChild(removeButton);
+
+                    previewContainer.appendChild(container);
+                };
+                reader.readAsDataURL(image);
+            });
+        }
+
+
+
+        // Function to handle click on preview images
+        function handlePreviewImageClick(event) {
+            // Get the source URL of the clicked image
+            var clickedImageUrl = event.target.src;
+
+            // Select the first image container
+            var firstImageContainer = document.querySelector(".first-image");
+
+            // Clear existing content
+            firstImageContainer.innerHTML = "";
+
+            // Create a new image element
+            var imgElement = document.createElement("img");
+            imgElement.src = clickedImageUrl;
+            imgElement.classList.add("preview-image");
+
+            // Append the new image element to the first image container
+            firstImageContainer.appendChild(imgElement);
+        }
+
+        function replaceFirstImage(imageUrl) {
+            var firstImageContainer = document.querySelector(".first-image");
+            firstImageContainer.innerHTML = ""; // Clear existing content
+
+            // Create img element
+            var imgElement = document.createElement("img");
+            imgElement.src = imageUrl;
+            imgElement.classList.add("preview-image");
+
+            // Append img element to the .first-image container
+            firstImageContainer.appendChild(imgElement);
+        }
+
+        function swapImages(currentIndex, newIndex) {
+            if (newIndex >= 0 && newIndex < selectedImages.length) {
+                var temp = selectedImages[currentIndex];
+                selectedImages[currentIndex] = selectedImages[newIndex];
+                selectedImages[newIndex] = temp;
+                // console.log("swaped" , currentIndex , " and " , newIndex);
+            }
+            displaySelectedImages(); // Re-render images after swap
+            var posting_images = selectedImages; // array for images
+            // for (var i = 0; i < posting_images.length; i++) {
+            //     console.log('Image:', posting_images[i].name);
+            // }
+        }
+
+        function displayFirstSelectedImage() {
+            var firstImageContainer = document.querySelector(".first-image");
+
+            // Clear existing content
+            firstImageContainer.innerHTML = "";
+
+            // Check if there are selected images
+            if (selectedImages.length > 0) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    // Create img element
+                    var imgElement = document.createElement("img");
+                    imgElement.src = event.target.result;
+                    imgElement.classList.add("preview-image");
+
+                    // Append img element to the first image container
+                    firstImageContainer.appendChild(imgElement);
+
+                    // Create previous and next buttons
+                    var prevButton = document.createElement("button");
+                    prevButton.innerText = "Previous";
+                    prevButton.addEventListener("click", function () {
+                        // Get the index of the current image
+                        var currentIndex = selectedImages.findIndex(function (image) {
+                            return image === imgElement.src;
+                        });
+                        // Calculate the index of the previous image
+                        var prevIndex = (currentIndex - 1 + selectedImages.length) % selectedImages.length;
+                        // Replace the first image with the previous image
+                        replaceFirstImage(selectedImages[prevIndex]);
+                    });
+                    firstImageContainer.appendChild(prevButton);
+
+                    var nextButton = document.createElement("button");
+                    nextButton.innerText = "Next";
+                    nextButton.addEventListener("click", function () {
+                        // Get the index of the current image
+                        var currentIndex = selectedImages.findIndex(function (image) {
+                            return image === imgElement.src;
+                        });
+                        // Calculate the index of the next image
+                        var nextIndex = (currentIndex + 1) % selectedImages.length;
+                        // Replace the first image with the next image
+                        replaceFirstImage(selectedImages[nextIndex]);
+                    });
+                    firstImageContainer.appendChild(nextButton);
+                };
+                // Read the data URL of the first image
+                reader.readAsDataURL(selectedImages[0]);
+            }
+        }
+
+        var imageSection = document.querySelector(".first-image");
+        var messageContainer = document.querySelector(".message-container");
+        var inputImage = document.querySelector("#images");
+        var hashtagsContainer = document.querySelector(".hashtags-container");
+        var imageSection1 = document.querySelector(".preview-images");
+        var allImages = document.querySelector(".allImages");
+        var toggleImagesButton = document.getElementById("toggleImagesButton");
+
+        // Add event listener to the button
+        toggleImagesButton.addEventListener("click", function () {
+            // Toggle the display property of imageSection and allImages
+            if (imageSection.style.display !== "none") {
+                if (selectedImages.length > 0) {
+                    imageSection.style.display = "none";
+                    imageSection1.style.display = "none";
+                    messageContainer.style.display = "block";
+                    hashtagsContainer.style.display = "block";
+                    allImages.style.display = "flex";
+                    toggleImagesButton.innerHTML = "Edit"; // Change button text to 'Edit'
+                    var allImagesDiv = document.querySelector(".allImages");
+                    inputImage.style.display = "none";
+                    allImagesDiv.innerHTML = "";
+                    selectedImages.forEach(function (image) {
+                        // Create img element
+                        var imgElement = document.createElement("img");
+
+                        // Set src attribute to the image data URL
+                        imgElement.src = URL.createObjectURL(image);
+
+                        // Append img element to the div
+                        allImagesDiv.appendChild(imgElement);
+                    });
+                } else {
+                    alert("Please select at least one image");
+                }
+            } else {
+                inputImage.style.display = "block";
+                hashtagsContainer.style.display = "none";
+                messageContainer.style.display = "none";
+                imageSection.style.display = "inline-block";
+                hashtagsContainer.style.display = "block";
+                imageSection1.style.display = "flex";
+                allImages.style.display = "none";
+                toggleImagesButton.innerHTML = "Save"; // Change button text back to 'Shrey'
+            }
+        });
+
+        // Event listener for add hashtag button
+        document
+            .getElementById("add-hashtag")
+            .addEventListener("click", function () {
+                var hashtagInput = document.getElementById("hashtags");
+                var hashtag = hashtagInput.value.trim(); // Remove leading and trailing spaces
+                if (hashtag !== "") {
+                    hashtags.push("#" + hashtag); // Add hashtag with '#' symbol to the array
+                    displayHashtags(); // Display hashtags
+                    hashtagInput.value = ""; // Clear input field
+                }
+            });
+
+        // event listener for post buttopn
+        document
+            .getElementById("post-form")
+            .addEventListener("submit", function (event) {
+                event.preventDefault();
+                if (hashtags.length < 3) {
+                    alert("Please add at least 3 hashtags.");
+                    // return ;
+                } else {
+                    var formData = new FormData(this);
+
+                    var title = formData.get("title"); // title of the post
+                    var message = formData.get("message"); // message of the post
+                    console.log("Title:", title);
+                    console.log("Message:", message);
+                    var hashtag_data = hashtags;
+                    console.log("Hashtags:");
+                    hashtag_data.forEach(function (hashtag) {
+                        console.log(hashtag); // individual hashtags
+                    });
+
+                    // Extract and log each image
+                    console.log("Images:");
+                    var posting_images = selectedImages; // array for images
+                    for (var i = 0; i < posting_images.length; i++) {
+                        console.log("Image:", posting_images[i].name);
+                    }
+                }
+            });
+
+        // Function to display hashtags
+        function displayHashtags() {
+            var hashtagsList = document.getElementById("hashtags-list");
+            hashtagsList.innerHTML = "";
+            hashtags.forEach(function (hashtag, index) {
+                var hashtagElement = document.createElement("div");
+                hashtagElement.textContent = hashtag;
+                hashtagElement.classList.add("hashtag");
+
+                var removeButton = document.createElement("button");
+                removeButton.innerHTML = "X";
+                removeButton.classList.add("remove-hashtag");
+                removeButton.addEventListener("click", function () {
+                    hashtags.splice(index, 1);
+                    displayHashtags();
+                });
+
+                hashtagElement.appendChild(removeButton);
+                hashtagsList.appendChild(hashtagElement);
+            });
+        }
+    </script>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
+</html>
